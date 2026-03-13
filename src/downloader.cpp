@@ -270,10 +270,29 @@ void Downloader::startDownloadInternal()
 void Downloader::stopDownload()
 {
     if (downloadProcess) {
-        downloadProcess->terminate();
-        downloadProcess->waitForFinished(3000);
+        downloadProcess->disconnect();
+        
+        if (downloadProcess->state() == QProcess::Running) {
+            downloadProcess->terminate();
+            if (!downloadProcess->waitForFinished(1000)) {
+                downloadProcess->kill();
+                downloadProcess->waitForFinished(500);
+            }
+        }
+        
         downloadProcess->deleteLater();
+        downloadProcess = nullptr;
+        
+        if (logger) logger->log("⏹ Загрузка остановлена!");
     }
+    
+    QProcess killYtDlp;
+    killYtDlp.start("taskkill", QStringList() << "/F" << "/T" << "/IM" << "yt-dlp.exe");
+    killYtDlp.waitForFinished(2000);
+    
+    QProcess killFfmpeg;
+    killFfmpeg.start("taskkill", QStringList() << "/F" << "/T" << "/IM" << "ffmpeg.exe");
+    killFfmpeg.waitForFinished(2000);
 }
 
 void Downloader::updateYtDlpAuto()
