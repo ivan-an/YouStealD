@@ -485,20 +485,19 @@ QRadioButton::indicator {
 
 /* Состояние ВЫКЛ */
 QRadioButton::indicator::unchecked {
-    image: url(&quot;G:/CIPP/yt_foo/off.png&quot;);
+    image: url(&quot;:/icons/off.png&quot;);
 }
 
 /* Состояние ВКЛ */
 QRadioButton::indicator::checked {
-    image: url(&quot;G:/CIPP/yt_foo/on.png&quot;);
+    image: url(&quot;:/icons/on.png&quot;);
 }
 
 /* Фикс синей обводки при фокусе (самое важное) */
 QRadioButton:focus {
     border: none;
     outline: none;
-}
-</string>
+}</string>
          </property>
          <property name="text">
           <string>Запись стрима</string>
@@ -523,20 +522,19 @@ QRadioButton::indicator {
 
 /* Состояние ВЫКЛ */
 QRadioButton::indicator::unchecked {
-    image: url(&quot;G:/CIPP/yt_foo/off.png&quot;);
+    image: url(&quot;:/icons/off.png&quot;);
 }
 
 /* Состояние ВКЛ */
 QRadioButton::indicator::checked {
-    image: url(&quot;G:/CIPP/yt_foo/on.png&quot;);
+    image: url(&quot;:/icons/on.png&quot;);
 }
 
 /* Фикс синей обводки при фокусе (самое важное) */
 QRadioButton:focus {
     border: none;
     outline: none;
-}
-</string>
+}</string>
          </property>
          <property name="text">
           <string>Скачать все видео с канала</string>
@@ -561,20 +559,19 @@ QRadioButton::indicator {
 
 /* Состояние ВЫКЛ */
 QRadioButton::indicator::unchecked {
-    image: url(&quot;G:/CIPP/yt_foo/off.png&quot;);
+    image: url(&quot;:/icons/off.png&quot;);
 }
 
 /* Состояние ВКЛ */
 QRadioButton::indicator::checked {
-    image: url(&quot;G:/CIPP/yt_foo/on.png&quot;);
+    image: url(&quot;:/icons/on.png&quot;);
 }
 
 /* Фикс синей обводки при фокусе (самое важное) */
 QRadioButton:focus {
     border: none;
     outline: none;
-}
-</string>
+}</string>
          </property>
          <property name="text">
           <string>Скачать видео</string>
