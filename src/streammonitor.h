@@ -54,6 +54,7 @@ private:
     QString stateFilePath;
     QString currentVideoId;
     bool currentIsLive = false;
+    QString currentOutputDir;
 
     void loadState();
     void saveState();
