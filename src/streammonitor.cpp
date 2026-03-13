@@ -320,6 +320,7 @@ void StreamMonitor::downloadContent(const QString &videoId, bool isLive)
     
     currentVideoId = videoId;
     currentIsLive = isLive;
+    currentOutputDir = pendingOutputDir;
     
     QString url = QString("https://www.youtube.com/watch?v=%1").arg(videoId);
     QString outputFile = QString("%1/%2_%3.%(ext)s").arg(pendingOutputDir, videoId, isLive ? "stream" : "video");
@@ -607,9 +608,9 @@ void StreamMonitor::stopDownload()
         
         if (downloadProcess->state() == QProcess::Running) {
             downloadProcess->terminate();
-            if (!downloadProcess->waitForFinished(2000)) {
+            if (!downloadProcess->waitForFinished(1000)) {
                 downloadProcess->kill();
-                downloadProcess->waitForFinished(1000);
+                downloadProcess->waitForFinished(500);
             }
         }
         
@@ -618,6 +619,31 @@ void StreamMonitor::stopDownload()
         isDownloading = false;
         wasDownloading = true;
         logger->log("⏹ Загрузка остановлена!");
+    }
+    
+    QProcess killYtDlp;
+    killYtDlp.start("taskkill", QStringList() << "/F" << "/T" << "/IM" << "yt-dlp.exe");
+    killYtDlp.waitForFinished(2000);
+    
+    QProcess killFfmpeg;
+    killFfmpeg.start("taskkill", QStringList() << "/F" << "/T" << "/IM" << "ffmpeg.exe");
+    killFfmpeg.waitForFinished(2000);
+    
+    if (!currentOutputDir.isEmpty() && !currentVideoId.isEmpty()) {
+        QDir dir(currentOutputDir);
+        QStringList filters;
+        filters << QString("%1_stream.*").arg(currentVideoId)
+                << QString("%1_video.*").arg(currentVideoId)
+                << QString("%1_stream.*.ytdl").arg(currentVideoId)
+                << QString("%1_video.*.ytdl").arg(currentVideoId)
+                << QString("%1_stream.*-Frag*").arg(currentVideoId)
+                << QString("%1_video.*-Frag*").arg(currentVideoId);
+        
+        QFileInfoList files = dir.entryInfoList(filters, QDir::Files);
+        for (const QFileInfo &file : files) {
+            QFile::remove(file.absoluteFilePath());
+            logger->log("🗑 Удалён partial файл: " + file.fileName());
+        }
     }
     
     if (wasDownloading && isMonitoring) {
