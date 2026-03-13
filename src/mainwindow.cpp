@@ -400,16 +400,12 @@ void MainWindow::connectSignals()
         ui->startMonitoringBtn->setEnabled(false);
         ui->stopMonitoringBtn->setEnabled(true);
         ui->stopDownloadBtn->setEnabled(true);
-        ui->toggleMonitoringSectionBtn->setIcon(QIcon(":/icons/on.png"));
-        ui->toggleMonitoringSectionBtn->setIconSize(QSize(20, 20));
         ui->optionalLabel->setText("Мониторинг запущен...");
     });
     connect(streamMonitor, &StreamMonitor::monitoringStopped, this, [this]() {
         ui->startMonitoringBtn->setEnabled(true);
         ui->stopMonitoringBtn->setEnabled(false);
         ui->stopDownloadBtn->setEnabled(false);
-        ui->toggleMonitoringSectionBtn->setIcon(QIcon(":/icons/off.png"));
-        ui->toggleMonitoringSectionBtn->setIconSize(QSize(20, 20));
         ui->progressBar->setValue(0);
         ui->optionalLabel->setText("Мониторинг остановлен");
     });
@@ -692,6 +688,7 @@ void MainWindow::on_startMonitoringBtn_clicked()
 
 void MainWindow::on_stopMonitoringBtn_clicked()
 {
+    downloader->stopDownload();
     streamMonitor->stopMonitoring();
     
     ui->startMonitoringBtn->setEnabled(true);
