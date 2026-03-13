@@ -8,6 +8,10 @@ The program uses **yt-dlp** and **ffmpeg** under the hood.
 
 ---
 
+## Screenshot
+
+![YouStealD Main Window](res/screenshots/img.png)
+
 # ✨ Main Features
 
 - **Video / Playlist / Channel download** – select format, resolution, and container (MP4, WebM, audio‑only).
