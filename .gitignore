@@ -1,0 +1,43 @@
+# Build folders
+build/
+debug/
+release/
+
+# Makefiles and generated qmake files
+Makefile*
+.qmake.stash
+*.pro.user
+
+# Object files
+*.o
+*.obj
+
+# Executables and DLLs
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Qt generated headers
+ui_*.h
+moc_*.cpp
+qrc_*.cpp
+
+# Qt Creator / IDE caches
+*.user
+*.user.* 
+*.pro.user.*
+.qtc_clangd/
+.qtcreator/
+
+# Temporary files
+*~
+*.tmp
+*.log
+
+# Backup files
+*.bak
+
+# OS files (Windows / macOS)
+Thumbs.db
+.DS_Store
