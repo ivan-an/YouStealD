@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>536</width>
+    <height>789</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>10</number>
+    </property>
+    <property name="topMargin">
+     <number>10</number>
+    </property>
+    <property name="rightMargin">
+     <number>10</number>
+    </property>
+    <property name="bottomMargin">
+     <number>10</number>
+    </property>
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item alignment="Qt::AlignmentFlag::AlignLeft">
+       <widget class="QPushButton" name="settingsBtn">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Helvetica</family>
+          <pointsize>10</pointsize>
+          <italic>false</italic>
+          <fontweight>Light</fontweight>
+         </font>
+        </property>
+        <property name="text">
+         <string>Настройки</string>
+        </property>
+       </widget>
+      </item>
+      <item alignment="Qt::AlignmentFlag::AlignRight">
+       <widget class="QPushButton" name="toggleMonitoringSectionBtn">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Helvetica</family>
+          <pointsize>10</pointsize>
+          <italic>false</italic>
+          <fontweight>Light</fontweight>
+         </font>
+        </property>
+        <property name="text">
+         <string>Мониторинг</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="5" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Helvetica</family>
+          <pointsize>10</pointsize>
+          <italic>false</italic>
+          <fontweight>Light</fontweight>
+         </font>
+        </property>
+        <property name="text">
+         <string>Выберите формат:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="formatComboBox">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Helvetica</family>
+          <pointsize>10</pointsize>
+          <italic>false</italic>
+          <fontweight>Light</fontweight>
+         </font>
+        </property>
+        <item>
+         <property name="text">
+          <string>MP4 (best)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>MP4 (1080p)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>MP4 (720p)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>WebM (best)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Audio only (MP3)</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Helvetica</family>
+          <pointsize>10</pointsize>
+          <italic>false</italic>
+          <fontweight>Light</fontweight>
+         </font>
+        </property>
+        <property name="text">
+         <string>Введите url:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="urlInput">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="6" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Helvetica</family>
+          <pointsize>10</pointsize>
+          <italic>false</italic>
+          <fontweight>Light</fontweight>
+         </font>
+        </property>
+        <property name="text">
+         <string>Выбрать путь для сохранения:</string>
+        </property>
+       </widget>
+      </item>
+      <item alignment="Qt::AlignmentFlag::AlignLeft">
+       <widget class="QPushButton" name="selectFolderBtn">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Helvetica</family>
+          <pointsize>10</pointsize>
+          <italic>false</italic>
+          <fontweight>Light</fontweight>
+         </font>
+        </property>
+        <property name="text">
+         <string>Выбрать папку</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="14" column="0">
+     <widget class="QWidget" name="monitoringSection" native="true">
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <property name="spacing">
+        <number>5</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="optionalLabel">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>Helvetica</family>
+           <pointsize>10</pointsize>
+           <italic>false</italic>
+           <fontweight>Light</fontweight>
+          </font>
+         </property>
+         <property name="text">
+          <string>Опционально (для отслеживания):</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="monitorGroupBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>Helvetica</family>
+           <pointsize>10</pointsize>
+           <italic>false</italic>
+           <fontweight>Light</fontweight>
+          </font>
+         </property>
+         <property name="visible">
+          <bool>false</bool>
+         </property>
+         <property name="title">
+          <string>Выберите, что отслеживать:</string>
+         </property>
+         <layout class="QHBoxLayout" name="monitorLayout">
+          <property name="spacing">
+           <number>10</number>
+          </property>
+          <property name="leftMargin">
+           <number>10</number>
+          </property>
+          <property name="rightMargin">
+           <number>10</number>
+          </property>
+          <item>
+           <widget class="QCheckBox" name="monitorVideosCheckBox">
+            <property name="text">
+             <string>Видео</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="monitorStreamsCheckBox">
+            <property name="text">
+             <string>Стримы</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QPushButton" name="startMonitoringBtn">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Отслеживать</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="stopMonitoringBtn">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Отменить отслеживание</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="13" column="0">
+     <layout class="QGridLayout" name="gridLayout_3">
+      <property name="verticalSpacing">
+       <number>8</number>
+      </property>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="startDownloadBtn">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Helvetica</family>
+          <pointsize>10</pointsize>
+          <italic>false</italic>
+          <fontweight>Light</fontweight>
+         </font>
+        </property>
+        <property name="text">
+         <string>Начать загрузку</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QPushButton" name="stopDownloadBtn">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Helvetica</family>
+          <pointsize>10</pointsize>
+          <italic>false</italic>
+          <fontweight>Light</fontweight>
+         </font>
+        </property>
+        <property name="text">
+         <string>Отменить загрузку</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="QProgressBar" name="progressBar">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="value">
+         <number>0</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="16" column="0">
+     <widget class="QTextEdit" name="logOutput">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <family>Helvetica</family>
+        <pointsize>10</pointsize>
+        <italic>false</italic>
+        <fontweight>Light</fontweight>
+       </font>
+      </property>
+     </widget>
+    </item>
+    <item row="15" column="0">
+     <widget class="QPushButton" name="toggleLogBtn">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <family>Helvetica</family>
+        <pointsize>10</pointsize>
+        <italic>false</italic>
+        <fontweight>Light</fontweight>
+       </font>
+      </property>
+      <property name="text">
+       <string>Показать лог</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <family>Helvetica</family>
+        <pointsize>10</pointsize>
+        <italic>false</italic>
+        <fontweight>Light</fontweight>
+       </font>
+      </property>
+      <property name="title">
+       <string>Выберите тип загрузки:</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="1">
+        <widget class="QRadioButton" name="downloadStreamBtn">
+         <property name="styleSheet">
+          <string notr="true">QRadioButton {
+    spacing: 10px;
+    outline: none; /* Убирает пунктирную рамку фокуса в некоторых стилях */
+}
+
+/* Убираем любые рамки и фоны у самого индикатора */
+QRadioButton::indicator {
+    width: 25px;
+    height: 25px;
+    border: none;
+    background: none;
+}
+
+/* Состояние ВЫКЛ */
+QRadioButton::indicator::unchecked {
+    image: url(&quot;G:/CIPP/yt_foo/off.png&quot;);
+}
+
+/* Состояние ВКЛ */
+QRadioButton::indicator::checked {
+    image: url(&quot;G:/CIPP/yt_foo/on.png&quot;);
+}
+
+/* Фикс синей обводки при фокусе (самое важное) */
+QRadioButton:focus {
+    border: none;
+    outline: none;
+}
+</string>
+         </property>
+         <property name="text">
+          <string>Запись стрима</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QRadioButton" name="downloadChannelBtn">
+         <property name="styleSheet">
+          <string notr="true">QRadioButton {
+    spacing: 10px;
+    outline: none; /* Убирает пунктирную рамку фокуса в некоторых стилях */
+}
+
+/* Убираем любые рамки и фоны у самого индикатора */
+QRadioButton::indicator {
+    width: 25px;
+    height: 25px;
+    border: none;
+    background: none;
+}
+
+/* Состояние ВЫКЛ */
+QRadioButton::indicator::unchecked {
+    image: url(&quot;G:/CIPP/yt_foo/off.png&quot;);
+}
+
+/* Состояние ВКЛ */
+QRadioButton::indicator::checked {
+    image: url(&quot;G:/CIPP/yt_foo/on.png&quot;);
+}
+
+/* Фикс синей обводки при фокусе (самое важное) */
+QRadioButton:focus {
+    border: none;
+    outline: none;
+}
+</string>
+         </property>
+         <property name="text">
+          <string>Скачать все видео с канала</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QRadioButton" name="downloadVideoBtn">
+         <property name="styleSheet">
+          <string notr="true">QRadioButton {
+    spacing: 10px;
+    outline: none; /* Убирает пунктирную рамку фокуса в некоторых стилях */
+}
+
+/* Убираем любые рамки и фоны у самого индикатора */
+QRadioButton::indicator {
+    width: 25px;
+    height: 25px;
+    border: none;
+    background: none;
+}
+
+/* Состояние ВЫКЛ */
+QRadioButton::indicator::unchecked {
+    image: url(&quot;G:/CIPP/yt_foo/off.png&quot;);
+}
+
+/* Состояние ВКЛ */
+QRadioButton::indicator::checked {
+    image: url(&quot;G:/CIPP/yt_foo/on.png&quot;);
+}
+
+/* Фикс синей обводки при фокусе (самое важное) */
+QRadioButton:focus {
+    border: none;
+    outline: none;
+}
+</string>
+         </property>
+         <property name="text">
+          <string>Скачать видео</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="selectedFolderLabel">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <family>Helvetica</family>
+        <pointsize>10</pointsize>
+        <italic>false</italic>
+        <fontweight>Light</fontweight>
+       </font>
+      </property>
+      <property name="text">
+       <string>(Папка не выбрана)</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>536</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
