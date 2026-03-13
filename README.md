@@ -10,7 +10,7 @@ The program uses **yt-dlp** and **ffmpeg** under the hood.
 
 ## Screenshot
 
-![YouStealD Main Window](res/screenshots/img.png)
+![YouStealD Main Window](res/screenshots/img1.png)
 
 # ✨ Main Features
 
