@@ -8,7 +8,7 @@ import sys
 app = Flask(__name__)
 
 # Настройки
-API_KEY = "REMOVED_KEY"
+API_KEY = "..."
 OUTPUT_DIR = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.expanduser("~"), "Downloads")
 FORMAT = sys.argv[2] if len(sys.argv) > 2 else "MP4 (best)"
 MONITOR_STREAMS = sys.argv[3] == "true" if len(sys.argv) > 3 else True
