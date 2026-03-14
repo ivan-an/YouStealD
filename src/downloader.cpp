@@ -106,6 +106,12 @@ void Downloader::startDownloadInternal()
     QString mergeFormat;
     QString recodeFormat;
 
+    if (!m_proxy.isEmpty()) {
+        arguments << "--proxy" << m_proxy;
+    }
+
+    bool useAria2c = m_useAria2c && m_proxy.isEmpty();
+
     if (currentFormat == "MP4 (best)") {
         formatOption = "bestvideo+bestaudio/best";
         mergeFormat = "mp4";
@@ -143,14 +149,40 @@ void Downloader::startDownloadInternal()
 
     if (currentIsStream) {
         arguments << "--live-from-start";
-        arguments << "--wait-for-video" << "(5-60)";
-    }
+        arguments << "--wait-for-video" << "5-60";
+        arguments << "--no-part";
+        arguments << "--no-warnings"
+                  << "--buffer-size" << "1M"
+                  << "--js-runtimes" << (appDir + "/deno.exe");
+    } else {
+        arguments << "--no-part"
+                  << "--no-warnings"
+                  << "--buffer-size" << "1M"
+                  << "--js-runtimes" << (appDir + "/deno.exe");
 
-    arguments << "--no-part"
-              << "--no-warnings"
-              << "--buffer-size" << "1M"
-              << "--concurrent-fragments" << "4"
-              << "--js-runtimes" << (appDir + "/deno.exe");
+        arguments << "--retries" << "10"
+                  << "--fragment-retries" << "10"
+                  << "--retry-sleep" << "fragment:3";
+
+        QString aria2cPath = appDir + "/aria2c.exe";
+        QFile aria2cFile(aria2cPath);
+        bool aria2cAvailable = useAria2c && aria2cFile.exists();
+        
+        if (aria2cAvailable) {
+            arguments << "--downloader" << "aria2c";
+            arguments << "--downloader-args" << "aria2c:-x16";
+            arguments << "--concurrent-fragments" << "16";
+            if (logger) logger->log("ℹ️ Используется aria2c для загрузки (16 соединений)");
+        } else {
+            arguments << "--concurrent-fragments" << "4";
+            if (useAria2c && !aria2cFile.exists()) {
+                if (logger) logger->log("⚠️ aria2c.exe не найден! Используется стандартная загрузка.");
+            }
+            if (useAria2c && aria2cFile.exists() && !m_proxy.isEmpty()) {
+                if (logger) logger->log("⚠️ aria2c отключен при использовании прокси");
+            }
+        }
+    }
 
     if (!mergeFormat.isEmpty()) {
         arguments << "--merge-output-format" << mergeFormat
@@ -197,6 +229,13 @@ void Downloader::startDownloadInternal()
                 if (match.hasMatch()) {
                     float progress = match.captured(1).toFloat();
                     emit progressUpdated(static_cast<int>(progress));
+                } else {
+                    QRegularExpression re2("\\[#\\w+\\s+[\\d.]+[KMG]?i?B/([\\d.]+)[KMG]?i?B\\s*\\((\\d+)%\\)");
+                    QRegularExpressionMatch match2 = re2.match(outputStr);
+                    if (match2.hasMatch()) {
+                        float percent = match2.captured(2).toFloat();
+                        emit progressUpdated(static_cast<int>(percent));
+                    }
                 }
             });
 
@@ -269,30 +308,30 @@ void Downloader::startDownloadInternal()
 
 void Downloader::stopDownload()
 {
+    QString outputFolder = currentOutputFolder;
+    
     if (downloadProcess) {
-        downloadProcess->disconnect();
-        
-        if (downloadProcess->state() == QProcess::Running) {
-            downloadProcess->terminate();
-            if (!downloadProcess->waitForFinished(1000)) {
-                downloadProcess->kill();
-                downloadProcess->waitForFinished(500);
-            }
+        downloadProcess->terminate();
+        if (!downloadProcess->waitForFinished(3000)) {
+            downloadProcess->kill();
         }
-        
-        downloadProcess->deleteLater();
+        delete downloadProcess;
         downloadProcess = nullptr;
-        
-        if (logger) logger->log("⏹ Загрузка остановлена!");
     }
     
-    QProcess killYtDlp;
-    killYtDlp.start("taskkill", QStringList() << "/F" << "/T" << "/IM" << "yt-dlp.exe");
-    killYtDlp.waitForFinished(2000);
-    
-    QProcess killFfmpeg;
-    killFfmpeg.start("taskkill", QStringList() << "/F" << "/T" << "/IM" << "ffmpeg.exe");
-    killFfmpeg.waitForFinished(2000);
+    if (!outputFolder.isEmpty()) {
+        QDir dir(outputFolder);
+        if (dir.exists()) {
+            QStringList filters;
+            filters << "*.part" << "*.ytdl" << "*.part-Frag*" << "*.f*";
+            QFileInfoList files = dir.entryInfoList(filters, QDir::Files, QDir::Time);
+            
+            for (const QFileInfo &file : files) {
+                QFile::remove(file.absoluteFilePath());
+                if (logger) logger->log("🧹 Удален частичный файл: " + file.fileName());
+            }
+        }
+    }
 }
 
 void Downloader::updateYtDlpAuto()

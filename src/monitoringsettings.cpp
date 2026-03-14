@@ -3,6 +3,8 @@
 #include "appconstants.h"
 
 #include <QSettings>
+#include <QFileInfo>
+#include <QFileDialog>
 
 MonitoringSettings::MonitoringSettings(QWidget *parent)
     : QDialog(parent)
@@ -11,6 +13,8 @@ MonitoringSettings::MonitoringSettings(QWidget *parent)
     , m_monitorVideos(true)
     , m_language("ru")
     , m_channelUrl("")
+    , m_useCookies(false)
+    , m_cookiesFile("")
 {
     ui->setupUi(this);
     setModal(true);
@@ -22,11 +26,18 @@ MonitoringSettings::MonitoringSettings(QWidget *parent)
     QString savedChannelUrl = settings.value("monitorChannelUrl", "").toString();
     QString savedFormat = settings.value("monitorFormat", "best").toString();
     m_language = settings.value("language", "ru").toString();
+    m_useCookies = settings.value("monitorUseCookies", false).toBool();
+    m_cookiesFile = settings.value("monitorCookiesFile", "").toString();
 
     ui->apiKeyLineEdit->setText(savedApiKey);
     ui->monitorStreamsCheckBox->setChecked(savedMonitorStreams);
     ui->monitorVideosCheckBox->setChecked(savedMonitorVideos);
     ui->channelUrlLineEdit->setText(savedChannelUrl);
+    ui->useCookiesCheckBox->setChecked(m_useCookies);
+    
+    if (!m_cookiesFile.isEmpty()) {
+        ui->cookiesFileLabel->setText(QFileInfo(m_cookiesFile).fileName());
+    }
 
     ui->formatComboBox->addItems({"best", "bestvideo+bestaudio", "worst", "mp4", "webm", "m4a", "mp3", "wav", "flac"});
     ui->formatComboBox->setEditable(true);
@@ -61,6 +72,7 @@ void MonitoringSettings::applyLanguage()
         ui->channelUrlLabel->setText("Channel URL to monitor:");
         ui->channelUrlLineEdit->setPlaceholderText("https://www.youtube.com/@ChannelName");
         ui->formatLabel->setText("Select format:");
+        ui->useCookiesCheckBox->setText("Use cookies");
         ui->saveButton->setText("Save & Start");
         ui->cancelButton->setText("Cancel");
     } else if (m_language == "zh") {
@@ -74,6 +86,7 @@ void MonitoringSettings::applyLanguage()
         ui->channelUrlLabel->setText("要监控的频道URL：");
         ui->channelUrlLineEdit->setPlaceholderText("https://www.youtube.com/@频道名称");
         ui->formatLabel->setText("选择格式：");
+        ui->useCookiesCheckBox->setText("使用 cookies");
         ui->saveButton->setText("保存并开始");
         ui->cancelButton->setText("取消");
     } else if (m_language == "hi") {
@@ -86,6 +99,8 @@ void MonitoringSettings::applyLanguage()
         ui->monitorVideosCheckBox->setText("वीडियो");
         ui->channelUrlLabel->setText("मॉनिटर करने के लिए चैनल URL:");
         ui->channelUrlLineEdit->setPlaceholderText("https://www.youtube.com/@चैनलनाम");
+        ui->formatLabel->setText("फॉर्मेट चुनें:");
+        ui->useCookiesCheckBox->setText("कुकीज़ का उपयोग करें");
         ui->saveButton->setText("सहेजें और शुरू करें");
         ui->cancelButton->setText("रद्द करें");
     } else {
@@ -98,6 +113,8 @@ void MonitoringSettings::applyLanguage()
         ui->monitorVideosCheckBox->setText("Видео");
         ui->channelUrlLabel->setText("URL канала для отслеживания:");
         ui->channelUrlLineEdit->setPlaceholderText("https://www.youtube.com/@ИмяКанала");
+        ui->formatLabel->setText("Выберите формат:");
+        ui->useCookiesCheckBox->setText("Использовать cookies");
         ui->saveButton->setText("Сохранить и запустить");
         ui->cancelButton->setText("Отмена");
     }
@@ -161,6 +178,16 @@ void MonitoringSettings::setFormat(const QString &format)
     }
 }
 
+bool MonitoringSettings::getUseCookies() const
+{
+    return m_useCookies;
+}
+
+QString MonitoringSettings::getCookiesFile() const
+{
+    return m_cookiesFile;
+}
+
 void MonitoringSettings::on_saveButton_clicked()
 {
     m_apiKey = ui->apiKeyLineEdit->text();
@@ -168,6 +195,7 @@ void MonitoringSettings::on_saveButton_clicked()
     m_monitorVideos = ui->monitorVideosCheckBox->isChecked();
     m_channelUrl = ui->channelUrlLineEdit->text();
     m_format = ui->formatComboBox->currentText();
+    m_useCookies = ui->useCookiesCheckBox->isChecked();
 
     QSettings settings(ORG_NAME, APP_NAME);
     settings.setValue("apiKey", m_apiKey);
@@ -175,6 +203,8 @@ void MonitoringSettings::on_saveButton_clicked()
     settings.setValue("monitorVideos", m_monitorVideos);
     settings.setValue("monitorChannelUrl", m_channelUrl);
     settings.setValue("monitorFormat", m_format);
+    settings.setValue("monitorUseCookies", m_useCookies);
+    settings.setValue("monitorCookiesFile", m_cookiesFile);
 
     accept();
 }
@@ -182,4 +212,24 @@ void MonitoringSettings::on_saveButton_clicked()
 void MonitoringSettings::on_cancelButton_clicked()
 {
     reject();
+}
+
+void MonitoringSettings::on_selectCookiesBtn_clicked()
+{
+    QString title = (m_language == "en") ? "Select cookies file" :
+                   (m_language == "zh") ? "选择 cookies 文件" :
+                   (m_language == "hi") ? "कुकीज़ फ़ाइल चुनें" :
+                   "Выберите файл cookies";
+    
+    QString fileName = QFileDialog::getOpenFileName(
+        this,
+        title,
+        QDir::homePath(),
+        "Cookies files (*.txt);;All files (*.*)"
+    );
+    
+    if (!fileName.isEmpty()) {
+        m_cookiesFile = fileName;
+        ui->cookiesFileLabel->setText(QFileInfo(fileName).fileName());
+    }
 }

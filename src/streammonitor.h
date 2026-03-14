@@ -5,8 +5,10 @@
 #include <QProcess>
 #include <QTimer>
 #include <QNetworkAccessManager>
+#include <QSettings>
 #include "logger.h"
 #include "authmethod.h"
+#include "appconstants.h"
 
 class StreamMonitor : public QObject
 {
@@ -55,6 +57,8 @@ private:
     QString currentVideoId;
     bool currentIsLive = false;
     QString currentOutputDir;
+    bool m_useAria2c = false;
+    QString m_proxy;
 
     void loadState();
     void saveState();
@@ -64,6 +68,8 @@ private:
 public:
     AuthMethod authMethod = AuthMethod::None;
     QString cookiesFilePath;
+    void setUseAria2c(bool use) { m_useAria2c = use; }
+    void setProxy(const QString &proxy) { m_proxy = proxy; }
 };
 
 #endif // STREAMMONITOR_H

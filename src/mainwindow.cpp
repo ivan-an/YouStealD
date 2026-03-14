@@ -55,6 +55,9 @@ MainWindow::MainWindow(QWidget *parent)
     monitorVideos = settings.value("monitorVideos", true).toBool();
     monitorChannelUrl = settings.value("monitorChannelUrl", "").toString();
     language = settings.value("language", "ru").toString();
+    bool useAria2c = settings.value("useAria2c", false).toBool();
+    downloader->setUseAria2c(useAria2c);
+    streamMonitor->setUseAria2c(useAria2c);
 
     channelIdManager->setApiKey(apiKey);
 
@@ -552,16 +555,20 @@ void MainWindow::on_startDownloadBtn_clicked()
 void MainWindow::on_stopDownloadBtn_clicked()
 {
     QString confirmTitle = (language == "zh") ? "确认" : (language == "hi") ? "पुष्टि" : (language == "en") ? "Confirmation" : "Подтверждение";
-    QString confirmMsg = (language == "zh") ? "停止下载？" : (language == "hi") ? "डाउनलोड रद्द करें?" : (language == "en") ? "Stop download?" : "Остановить загрузку?";
+    QString confirmMsg = (language == "zh") ? "停止下载？" : (language == "hi") ? "डाउनलोड रद्द करें?" : (language == "en") ? "Stop download?" : "Остановить загрузку и мониторинг?";
     if (QMessageBox::question(this, confirmTitle, confirmMsg) == QMessageBox::Yes) {
+        logger->log("⏹ Остановка загрузки и мониторинга...");
+        
         downloader->stopDownload();
         
         if (streamMonitor) {
             streamMonitor->stopDownload();
+            streamMonitor->stopMonitoring();
         }
         
-        ui->optionalLabel->setText((language == "zh") ? "下载已停止" : (language == "hi") ? "डाउनलोड रद्द" : (language == "en") ? "Download stopped" : "Загрузка остановлена");
+        ui->optionalLabel->setText((language == "zh") ? "下载已停止" : (language == "hi") ? "डाउनलोड रद्द" : (language == "en") ? "Download stopped" : "Загрузка и мониторинг остановлены");
         ui->progressBar->setValue(0);
+        logger->log("⏹ Загрузка и мониторинг остановлены");
     }
 }
 
@@ -612,7 +619,9 @@ void MainWindow::on_toggleMonitoringSectionBtn_clicked()
     dialog.setChannelUrl(monitorChannelUrl);
     dialog.setLanguage(language);
 
-    if (dialog.exec() == QDialog::Accepted) {
+    int result = dialog.exec();
+    
+    if (result == QDialog::Accepted) {
         apiKey = dialog.getApiKey();
         monitorStreams = dialog.getMonitorStreams();
         monitorVideos = dialog.getMonitorVideos();
@@ -631,6 +640,18 @@ void MainWindow::on_toggleMonitoringSectionBtn_clicked()
             if (monitorStreams || monitorVideos) {
                 on_startMonitoringBtn_clicked();
             }
+        }
+    } else {
+        logger->log("⚠️ Отмена - останавливаем мониторинг");
+        
+        QProcess killYtDlp;
+        killYtDlp.start("taskkill", QStringList() << "/F" << "/T" << "/IM" << "yt-dlp.exe");
+        killYtDlp.waitForFinished(2000);
+        
+        if (streamMonitor) {
+            streamMonitor->stopDownload();
+            streamMonitor->stopMonitoring();
+            logger->log("⏹ Мониторинг остановлен");
         }
     }
 }
@@ -688,12 +709,21 @@ void MainWindow::on_startMonitoringBtn_clicked()
 
 void MainWindow::on_stopMonitoringBtn_clicked()
 {
+    logger->log("⏹ Кнопка остановки мониторинга нажата");
+    
     downloader->stopDownload();
+    
+    QProcess killYtDlp;
+    killYtDlp.start("taskkill", QStringList() << "/F" << "/T" << "/IM" << "yt-dlp.exe");
+    killYtDlp.waitForFinished(2000);
+    
+    streamMonitor->stopDownload();
     streamMonitor->stopMonitoring();
     
     ui->startMonitoringBtn->setEnabled(true);
     ui->stopMonitoringBtn->setEnabled(false);
     ui->optionalLabel->setText("Мониторинг остановлен");
+    logger->log("⏹ Мониторинг остановлен");
 }
 
 void MainWindow::onContentDetected(const QString &videoId)
@@ -800,6 +830,10 @@ void MainWindow::on_settingsBtn_clicked()
     SettingsDialog dialog(this);
     if (dialog.exec() == QDialog::Accepted) {
         language = dialog.getLanguage();
+        downloader->setUseAria2c(dialog.getUseAria2c());
+        streamMonitor->setUseAria2c(dialog.getUseAria2c());
+        downloader->setProxy(dialog.getProxy());
+        streamMonitor->setProxy(dialog.getProxy());
         applyLanguage();
     }
 }

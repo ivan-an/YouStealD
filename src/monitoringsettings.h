@@ -20,6 +20,8 @@ public:
     bool getMonitorVideos() const;
     QString getChannelUrl() const;
     QString getFormat() const;
+    bool getUseCookies() const;
+    QString getCookiesFile() const;
     void setApiKey(const QString &key);
     void setMonitorStreams(bool monitor);
     void setMonitorVideos(bool monitor);
@@ -32,6 +34,7 @@ public:
 private slots:
     void on_saveButton_clicked();
     void on_cancelButton_clicked();
+    void on_selectCookiesBtn_clicked();
 
 private:
     Ui::MonitoringSettings *ui;
@@ -41,6 +44,8 @@ private:
     QString m_language;
     QString m_channelUrl;
     QString m_format;
+    bool m_useCookies;
+    QString m_cookiesFile;
 };
 
 #endif // MONITORINGSETTINGS_H

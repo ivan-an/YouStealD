@@ -28,6 +28,12 @@ SettingsDialog::SettingsDialog(QWidget *parent)
         ui->languageComboBox->setCurrentIndex(index);
     }
 
+    m_useAria2c = settings.value("useAria2c", false).toBool();
+    ui->aria2cCheckBox->setChecked(m_useAria2c);
+
+    m_proxy = settings.value("proxy", "").toString();
+    ui->proxyLineEdit->setText(m_proxy);
+
     ui->ytDlpVersionLabel->setText("...");
     QTimer::singleShot(100, this, &SettingsDialog::loadYtDlpVersion);
 
@@ -59,6 +65,10 @@ void SettingsDialog::applyLanguage()
         setWindowTitle("Settings");
         ui->label->setText("Language:");
         ui->versionLabel->setText("yt-dlp version:");
+        ui->aria2cCheckBox->setText("Use aria2c");
+        ui->aria2cCheckBox->setToolTip("Use aria2c for faster downloads");
+        ui->proxyLabel->setText("Proxy:");
+        ui->proxyLineEdit->setPlaceholderText("socks5://127.0.0.1:1080 or http://127.0.0.1:8080");
         ui->saveButton->setText("Save");
         ui->cancelButton->setText("Cancel");
         ui->updateYtDlpBtn->setToolTip("Update yt-dlp");
@@ -66,6 +76,10 @@ void SettingsDialog::applyLanguage()
         setWindowTitle("设置");
         ui->label->setText("语言：");
         ui->versionLabel->setText("yt-dlp 版本：");
+        ui->aria2cCheckBox->setText("使用 aria2c");
+        ui->aria2cCheckBox->setToolTip("使用 aria2c 加速下载");
+        ui->proxyLabel->setText("代理：");
+        ui->proxyLineEdit->setPlaceholderText("socks5://127.0.0.1:1080 或 http://127.0.0.1:8080");
         ui->saveButton->setText("保存");
         ui->cancelButton->setText("取消");
         ui->updateYtDlpBtn->setToolTip("更新 yt-dlp");
@@ -73,6 +87,10 @@ void SettingsDialog::applyLanguage()
         setWindowTitle("सेटिंग्स");
         ui->label->setText("भाषा:");
         ui->versionLabel->setText("yt-dlp संस्करण:");
+        ui->aria2cCheckBox->setText("aria2c का उपयोग करें");
+        ui->aria2cCheckBox->setToolTip("तेज डाउनलोड के लिए aria2c का उपयोग करें");
+        ui->proxyLabel->setText("प्रॉक्सी:");
+        ui->proxyLineEdit->setPlaceholderText("socks5://127.0.0.1:1080 या http://127.0.0.1:8080");
         ui->saveButton->setText("सहेजें");
         ui->cancelButton->setText("रद्द करें");
         ui->updateYtDlpBtn->setToolTip("yt-dlp अपडेट करें");
@@ -80,6 +98,10 @@ void SettingsDialog::applyLanguage()
         setWindowTitle("Настройки");
         ui->label->setText("Язык:");
         ui->versionLabel->setText("Версия yt-dlp:");
+        ui->aria2cCheckBox->setText("Использовать aria2c");
+        ui->aria2cCheckBox->setToolTip("Использовать aria2c для ускорения загрузки");
+        ui->proxyLabel->setText("Прокси:");
+        ui->proxyLineEdit->setPlaceholderText("socks5://127.0.0.1:1080 или http://127.0.0.1:8080");
         ui->saveButton->setText("Сохранить");
         ui->cancelButton->setText("Отмена");
         ui->updateYtDlpBtn->setToolTip("Обновить yt-dlp");
@@ -89,8 +111,12 @@ void SettingsDialog::applyLanguage()
 void SettingsDialog::on_saveButton_clicked()
 {
     m_language = ui->languageComboBox->currentData().toString();
+    m_useAria2c = ui->aria2cCheckBox->isChecked();
+    m_proxy = ui->proxyLineEdit->text();
     QSettings settings(ORG_NAME, APP_NAME);
     settings.setValue("language", m_language);
+    settings.setValue("useAria2c", m_useAria2c);
+    settings.setValue("proxy", m_proxy);
     accept();
 }
 

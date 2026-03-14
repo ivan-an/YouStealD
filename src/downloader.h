@@ -15,6 +15,8 @@ public:
     ~Downloader();
 
     void startDownload(const QString &url, const QString &outputFolder, const QString &format, bool isStream, bool isVideo, bool isChannel);
+    void setUseAria2c(bool use) { m_useAria2c = use; }
+    void setProxy(const QString &proxy) { m_proxy = proxy; }
     void stopDownload();
     void updateYtDlp();
     void updateYtDlpAuto();
@@ -55,6 +57,8 @@ private:
     bool m_lastIsStream = false;
     bool m_lastIsVideo = false;
     bool m_lastIsChannel = false;
+    bool m_useAria2c = false;
+    QString m_proxy;
     
     void startDownloadInternal();
     QString getAuthArgs();
