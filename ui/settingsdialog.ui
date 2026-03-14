@@ -2,14 +2,14 @@
 <ui version="4.0">
  <class>SettingsDialog</class>
  <widget class="QDialog" name="SettingsDialog">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>400</width>
-    <height>240</height>
-   </rect>
-  </property>
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>400</width>
+     <height>320</height>
+    </rect>
+   </property>
   <property name="windowTitle">
    <string>Settings</string>
   </property>
@@ -73,10 +73,34 @@
        </property>
       </widget>
      </item>
-    </layout>
-   </item>
-   <item>
-    <spacer name="verticalSpacer">
+     </layout>
+    </item>
+     <item>
+      <widget class="QCheckBox" name="aria2cCheckBox">
+       <property name="text">
+        <string>Использовать aria2c</string>
+       </property>
+       <property name="toolTip">
+        <string>Использовать aria2c для ускорения загрузки</string>
+       </property>
+      </widget>
+     </item>
+    <item>
+     <widget class="QLabel" name="proxyLabel">
+      <property name="text">
+       <string>Прокси:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="proxyLineEdit">
+      <property name="placeholderText">
+       <string>socks5://127.0.0.1:1080 или http://127.0.0.1:8080</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
