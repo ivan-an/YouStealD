@@ -1,11 +1,12 @@
 # YouStealD
 
-YouStealD is a **Qt‑based graphical downloader and stream monitor for YouTube**.
+**YouStealD** is a Qt-based graphical downloader and stream monitor for YouTube.
 
-It lets you download single videos, playlists, or entire channels, and it can continuously monitor a channel for new live streams or uploads and download them automatically. Authentication is supported via browser cookies or a `cookies.txt` file.
+It allows you to download single videos, playlists, or entire channels, and it can continuously monitor channels for new uploads or live streams and download them automatically.
 
-The program uses **yt-dlp** and **ffmpeg** under the hood.
+Authentication is supported via browser cookies or a `cookies.txt` file.
 
+Under the hood, YouStealD uses **yt-dlp** and **FFmpeg** for reliable media extraction and processing, with optional **aria2** integration for accelerated multi-connection downloads and support for **HTTP/HTTPS/SOCKS proxies**.
 ---
 
 ## Screenshot
