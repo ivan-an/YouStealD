@@ -13,6 +13,15 @@ Under the hood, YouStealD uses **yt-dlp** and **FFmpeg** for reliable media extr
 
 ![YouStealD Main Window](res/screenshots/img1.png)
 
+## 🌍Supported  Languages
+
+YouStealD currently supports the following interface languages:
+
+- 🇬🇧 English
+- 🇷🇺 Russian
+- 🇨🇳 Chinese
+- 🇮🇳 Hindi
+
 # ✨ Main Features
 
 - **Video / Playlist / Channel download** – select format, resolution, and container (MP4, WebM, audio-only).
