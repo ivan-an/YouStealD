@@ -15,20 +15,22 @@ Under the hood, YouStealD uses **yt-dlp** and **FFmpeg** for reliable media extr
 
 # ✨ Main Features
 
-- **Video / Playlist / Channel download** – select format, resolution, and container (MP4, WebM, audio‑only).
+- **Video / Playlist / Channel download** – select format, resolution, and container (MP4, WebM, audio-only).
 - **Stream monitoring** – watch a channel for new live streams or videos and download them automatically.
-- **Authenticated downloads** – use cookies from Chrome, Firefox, Edge (or any Chromium‑based browser such as Zen, Brave, Opera) or supply a `cookies.txt` file.
+- **Authenticated downloads** – use cookies from Chrome, Firefox, Edge (or any Chromium-based browser such as Zen, Brave, Opera) or supply a `cookies.txt` file.
+- **High-speed downloads** – optional **aria2** integration for multi-connection downloading.
+- **Proxy support** – download through **HTTP, HTTPS, or SOCKS proxies**.
 - **Format presets**
   - MP4 (best, 1080p, 720p)
   - WebM (best)
-  - Audio‑only (MP3)
+  - Audio-only (MP3)
 - **Performance tweaks**
-  - 1 MiB buffer
+  - 1 MiB buffer
   - 4 concurrent fragments
   - optional `--no-warnings` to keep the log clean
-- **JavaScript runtime** – bundles `deno.exe` (or uses a system‑installed Deno) so YouTube extraction works without external setup.
-- **Modern Qt UI** – animated icons, collapsible log panel, theme‑aware colors, and system‑tray‑style notifications.
-- **Cross‑platform** – builds on Windows (MinGW/MSVC), Linux, and macOS with the same sources.
+- **JavaScript runtime** – bundles `deno.exe` (or uses a system-installed Deno) so YouTube extraction works without external setup.
+- **Modern Qt UI** – animated icons, collapsible log panel, theme-aware colors, and system-tray-style notifications.
+- **Cross-platform** – builds on Windows (MinGW/MSVC), Linux, and macOS with the same sources.
 
 ---
 
