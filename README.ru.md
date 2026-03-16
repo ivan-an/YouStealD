@@ -16,7 +16,7 @@
 
 ## 📸 Скриншот
 
-![Главное окно YouStealD](res/screenshots/img1.png)
+![Главное окно YouStealD](res/screenshots/img3.png)
 
 ---
 
