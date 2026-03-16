@@ -110,29 +110,104 @@ void Downloader::startDownloadInternal()
         arguments << "--proxy" << m_proxy;
     }
 
+    arguments << "--user-agent" << "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
+
+    if (!m_isSpeedUnlimited) {
+        arguments << "--limit-rate" << "10M";
+    }
+
     bool useAria2c = m_useAria2c && m_proxy.isEmpty();
 
     if (currentFormat == "MP4 (best)") {
         formatOption = "bestvideo+bestaudio/best";
         mergeFormat = "mp4";
         recodeFormat = "mp4";
+    } else if (currentFormat == "MP4 (4K 2160p)") {
+        formatOption = "bestvideo[height<=2160]+bestaudio/best[height<=2160]";
+        mergeFormat = "mp4";
+        recodeFormat = "mp4";
+    } else if (currentFormat == "MP4 (1440p)") {
+        formatOption = "bestvideo[height<=1440]+bestaudio/best[height<=1440]";
+        mergeFormat = "mp4";
+        recodeFormat = "mp4";
     } else if (currentFormat == "MP4 (1080p)") {
-        formatOption = "bestvideo[height<=1080]+bestaudio/best";
+        formatOption = "bestvideo[height<=1080]+bestaudio/best[height<=1080]";
         mergeFormat = "mp4";
         recodeFormat = "mp4";
     } else if (currentFormat == "MP4 (720p)") {
-        formatOption = "bestvideo[height<=720]+bestaudio/best";
+        formatOption = "bestvideo[height<=720]+bestaudio/best[height<=720]";
+        mergeFormat = "mp4";
+        recodeFormat = "mp4";
+    } else if (currentFormat == "MP4 (480p)") {
+        formatOption = "bestvideo[height<=480]+bestaudio/best[height<=480]";
+        mergeFormat = "mp4";
+        recodeFormat = "mp4";
+    } else if (currentFormat == "MP4 (360p)") {
+        formatOption = "bestvideo[height<=360]+bestaudio/best[height<=360]";
+        mergeFormat = "mp4";
+        recodeFormat = "mp4";
+    } else if (currentFormat == "MP4 (240p)") {
+        formatOption = "bestvideo[height<=240]+bestaudio/best[height<=240]";
+        mergeFormat = "mp4";
+        recodeFormat = "mp4";
+    } else if (currentFormat == "MP4 (144p)") {
+        formatOption = "bestvideo[height<=144]+bestaudio/best[height<=144]";
         mergeFormat = "mp4";
         recodeFormat = "mp4";
     } else if (currentFormat == "WebM (best)") {
         formatOption = "bestvideo[ext=webm]+bestaudio[ext=webm]/best";
         mergeFormat = "webm";
         recodeFormat = "webm";
-    } else if (currentFormat == "Audio only (MP3)") {
+    } else if (currentFormat == "WebM (4K 2160p)") {
+        formatOption = "bestvideo[height<=2160][ext=webm]+bestaudio[ext=webm]/best[height<=2160]";
+        mergeFormat = "webm";
+        recodeFormat = "webm";
+    } else if (currentFormat == "WebM (1440p)") {
+        formatOption = "bestvideo[height<=1440][ext=webm]+bestaudio[ext=webm]/best[height<=1440]";
+        mergeFormat = "webm";
+        recodeFormat = "webm";
+    } else if (currentFormat == "WebM (1080p)") {
+        formatOption = "bestvideo[height<=1080][ext=webm]+bestaudio[ext=webm]/best[height<=1080]";
+        mergeFormat = "webm";
+        recodeFormat = "webm";
+    } else if (currentFormat == "WebM (720p)") {
+        formatOption = "bestvideo[height<=720][ext=webm]+bestaudio[ext=webm]/best[height<=720]";
+        mergeFormat = "webm";
+        recodeFormat = "webm";
+    } else if (currentFormat == "WebM (480p)") {
+        formatOption = "bestvideo[height<=480][ext=webm]+bestaudio[ext=webm]/best[height<=480]";
+        mergeFormat = "webm";
+        recodeFormat = "webm";
+    } else if (currentFormat == "WebM (360p)") {
+        formatOption = "bestvideo[height<=360][ext=webm]+bestaudio[ext=webm]/best[height<=360]";
+        mergeFormat = "webm";
+        recodeFormat = "webm";
+    } else if (currentFormat == "Audio (MP3)") {
         formatOption = "bestaudio";
         arguments << "--extract-audio"
                   << "--audio-format"
                   << "mp3";
+        mergeFormat = "";
+        recodeFormat = "";
+    } else if (currentFormat == "Audio (M4A)") {
+        formatOption = "bestaudio";
+        arguments << "--extract-audio"
+                  << "--audio-format"
+                  << "m4a";
+        mergeFormat = "";
+        recodeFormat = "";
+    } else if (currentFormat == "Audio (WAV)") {
+        formatOption = "bestaudio";
+        arguments << "--extract-audio"
+                  << "--audio-format"
+                  << "wav";
+        mergeFormat = "";
+        recodeFormat = "";
+    } else if (currentFormat == "Audio (OGG)") {
+        formatOption = "bestaudio";
+        arguments << "--extract-audio"
+                  << "--audio-format"
+                  << "opus";
         mergeFormat = "";
         recodeFormat = "";
     }
@@ -152,12 +227,14 @@ void Downloader::startDownloadInternal()
         arguments << "--wait-for-video" << "5-60";
         arguments << "--no-part";
         arguments << "--no-warnings"
-                  << "--buffer-size" << "1M"
+                  << "--buffer-size" << "32M"
+                  << "--http-chunk-size" << "50M"
                   << "--js-runtimes" << (appDir + "/deno.exe");
     } else {
         arguments << "--no-part"
                   << "--no-warnings"
-                  << "--buffer-size" << "1M"
+                  << "--buffer-size" << "32M"
+                  << "--http-chunk-size" << "50M"
                   << "--js-runtimes" << (appDir + "/deno.exe");
 
         arguments << "--retries" << "10"
@@ -169,10 +246,11 @@ void Downloader::startDownloadInternal()
         bool aria2cAvailable = useAria2c && aria2cFile.exists();
         
         if (aria2cAvailable) {
+            int connections = m_isSpeedUnlimited ? 16 : 8;
             arguments << "--downloader" << "aria2c";
-            arguments << "--downloader-args" << "aria2c:-x16";
-            arguments << "--concurrent-fragments" << "16";
-            if (logger) logger->log("ℹ️ Используется aria2c для загрузки (16 соединений)");
+            arguments << "--downloader-args" << QString("aria2c:-x%1 -s%1 --min-split-size=1M").arg(connections);
+            arguments << "--concurrent-fragments" << QString::number(connections);
+            if (logger) logger->log(QString("ℹ️ Используется aria2c для загрузки (%1 соединений)").arg(connections));
         } else {
             arguments << "--concurrent-fragments" << "4";
             if (useAria2c && !aria2cFile.exists()) {
@@ -219,6 +297,10 @@ void Downloader::startDownloadInternal()
 
                 QByteArray output = downloadProcess->readAllStandardOutput();
                 QString outputStr = QString(output);
+                
+                if (lastOutput.size() > 10 * 1024 * 1024) {
+                    lastOutput = lastOutput.right(1024 * 1024);
+                }
                 lastOutput += outputStr;
 
                 logger->log(outputStr);
@@ -247,6 +329,9 @@ void Downloader::startDownloadInternal()
 
                 QByteArray error = downloadProcess->readAllStandardError();
                 QString errorStr = QString(error);
+                if (lastOutput.size() > 10 * 1024 * 1024) {
+                    lastOutput = lastOutput.right(1024 * 1024);
+                }
                 lastOutput += errorStr;
                 logger->log("Ошибка: " + errorStr);
             });
@@ -275,10 +360,17 @@ void Downloader::startDownloadInternal()
                 logger->log("❌ Ошибка при загрузке: Код " + QString::number(exitCode));
                 
                 bool needsAuth = isAuthError(lastOutput);
+                bool isYtDlpError = isYtDlpErrorOutput(lastOutput);
                 
                 if (needsAuth && authMethod == AuthMethod::None) {
                     logger->log("🔐 Требуется авторизация!");
                     emit authRequired(currentUrl, lastOutput);
+                } else if (exitCode == 62097 || exitCode == -1) {
+                    logger->log("⏹ Загрузка отменена");
+                    emit statusUpdated("⏹ Загрузка отменена");
+                } else if (!isYtDlpError) {
+                    logger->log("⚠️ Сетевая ошибка или временный сбой");
+                    emit statusUpdated("⚠️ Ошибка сети");
                 } else {
                     emit statusUpdated("❌ Ошибка при загрузке!");
                     
@@ -319,16 +411,35 @@ void Downloader::stopDownload()
         downloadProcess = nullptr;
     }
     
+    QProcess killYtDlp;
+    killYtDlp.start("taskkill", QStringList() << "/F" << "/T" << "/IM" << "yt-dlp.exe");
+    killYtDlp.waitForFinished(2000);
+
+    QProcess killFfmpeg;
+    killFfmpeg.start("taskkill", QStringList() << "/F" << "/T" << "/IM" << "ffmpeg.exe");
+    killFfmpeg.waitForFinished(2000);
+    
     if (!outputFolder.isEmpty()) {
         QDir dir(outputFolder);
         if (dir.exists()) {
             QStringList filters;
-            filters << "*.part" << "*.ytdl" << "*.part-Frag*" << "*.f*";
+            filters << "*.part" << "*.ytdl" << "*.part-Frag*";
+            
             QFileInfoList files = dir.entryInfoList(filters, QDir::Files, QDir::Time);
             
             for (const QFileInfo &file : files) {
                 QFile::remove(file.absoluteFilePath());
-                if (logger) logger->log("🧹 Удален частичный файл: " + file.fileName());
+                if (logger) logger->log("🗑 Удалён временный файл: " + file.fileName());
+            }
+            
+            QFileInfoList allFiles = dir.entryInfoList(QDir::Files);
+            
+            for (const QFileInfo &file : allFiles) {
+                QString fname = file.fileName();
+                if (fname.contains(".f") || fname.contains("-Frag") || fname.contains("_stream") || fname.contains("_video")) {
+                    QFile::remove(file.absoluteFilePath());
+                    if (logger) logger->log("🗑 Удалён фрагмент: " + fname);
+                }
             }
         }
     }
@@ -407,6 +518,35 @@ bool Downloader::isAuthError(const QString &output)
     }
     
     return false;
+}
+
+bool Downloader::isYtDlpErrorOutput(const QString &output)
+{
+    QString lower = output.toLower();
+    
+    QStringList networkErrors = {
+        "connection",
+        "timeout",
+        "network",
+        "http error",
+        "ssl",
+        "tls",
+        "socket",
+        "remote",
+        "dns",
+        "could not connect",
+        "unable to connect",
+        "execution",
+        "failed"
+    };
+    
+    for (const QString &error : networkErrors) {
+        if (lower.contains(error)) {
+            return false;
+        }
+    }
+    
+    return true;
 }
 
 void Downloader::openBrowser(const QString &url)

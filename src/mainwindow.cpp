@@ -56,7 +56,9 @@ MainWindow::MainWindow(QWidget *parent)
     monitorChannelUrl = settings.value("monitorChannelUrl", "").toString();
     language = settings.value("language", "ru").toString();
     bool useAria2c = settings.value("useAria2c", false).toBool();
+    bool speedUnlimited = settings.value("speedUnlimited", false).toBool();
     downloader->setUseAria2c(useAria2c);
+    downloader->setSpeedUnlimited(speedUnlimited);
     streamMonitor->setUseAria2c(useAria2c);
 
     channelIdManager->setApiKey(apiKey);
@@ -831,6 +833,7 @@ void MainWindow::on_settingsBtn_clicked()
     if (dialog.exec() == QDialog::Accepted) {
         language = dialog.getLanguage();
         downloader->setUseAria2c(dialog.getUseAria2c());
+        downloader->setSpeedUnlimited(dialog.getSpeedUnlimited());
         streamMonitor->setUseAria2c(dialog.getUseAria2c());
         downloader->setProxy(dialog.getProxy());
         streamMonitor->setProxy(dialog.getProxy());

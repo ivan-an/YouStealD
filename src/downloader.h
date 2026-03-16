@@ -17,12 +17,14 @@ public:
     void startDownload(const QString &url, const QString &outputFolder, const QString &format, bool isStream, bool isVideo, bool isChannel);
     void setUseAria2c(bool use) { m_useAria2c = use; }
     void setProxy(const QString &proxy) { m_proxy = proxy; }
+    void setSpeedUnlimited(bool unlimited) { m_isSpeedUnlimited = unlimited; }
     void stopDownload();
     void updateYtDlp();
     void updateYtDlpAuto();
     void handleAuthRequired(const QString &url, const QString &errorMessage);
     
     static bool isAuthError(const QString &output);
+    static bool isYtDlpErrorOutput(const QString &output);
     static void openBrowser(const QString &url);
     static QString selectCookiesFile();
     void retryWithAuth();
@@ -59,6 +61,7 @@ private:
     bool m_lastIsChannel = false;
     bool m_useAria2c = false;
     QString m_proxy;
+    bool m_isSpeedUnlimited = false;
     
     void startDownloadInternal();
     QString getAuthArgs();

@@ -87,6 +87,20 @@ void StreamMonitor::startMonitoring(const QString &channelUrl, const QString &ou
 
 void StreamMonitor::stopMonitoring()
 {
+    if (!pendingOutputDir.isEmpty()) {
+        QDir dir(pendingOutputDir);
+        if (dir.exists()) {
+            QStringList filters;
+            filters << "*_stream.*" << "*_video.*" << "*.part" << "*.ytdl" << "*.part-Frag*" << "*.f*";
+            QFileInfoList files = dir.entryInfoList(filters, QDir::Files, QDir::Time);
+            
+            for (const QFileInfo &file : files) {
+                QFile::remove(file.absoluteFilePath());
+                logger->log("🗑 Удалён файл при остановке мониторинга: " + file.fileName());
+            }
+        }
+    }
+
     isMonitoring = false;
     checkTimer->stop();
 
@@ -174,7 +188,11 @@ void StreamMonitor::checkStreams()
 
                     if (isLiveStream) {
                         logger->log("🔴 НАЙДЕН АКТИВНЫЙ СТРИМ: " + videoId + " (" + liveStatus + ") - " + title);
-                        if (videoId != lastKnownStreamId) {
+                        
+                        bool alreadyDownloading = (downloadProcess != nullptr && currentVideoId == videoId && downloadProcess->state() == QProcess::Running);
+                        
+                        if (!alreadyDownloading) {
+                            logger->log("📥 Начинаем запись стрима: " + videoId);
                             downloadContent(videoId, true);
                             lastKnownStreamId = videoId;
                             saveState();
@@ -183,6 +201,11 @@ void StreamMonitor::checkStreams()
                         }
                     } else if (wasLive) {
                         logger->log("✅ Завершённый стрим: " + videoId + " (" + liveStatus + ")");
+                        if (videoId == lastKnownStreamId) {
+                            lastKnownStreamId = "";
+                            saveState();
+                            logger->log("🔄 Стрим завершён, сбрасываем ID");
+                        }
                     }
                 }
             }

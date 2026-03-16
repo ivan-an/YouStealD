@@ -17,6 +17,7 @@ public:
 
     QString getLanguage() const { return m_language; }
     bool getUseAria2c() const { return m_useAria2c; }
+    bool getSpeedUnlimited() const { return m_speedUnlimited; }
     QString getProxy() const { return m_proxy; }
 
 private slots:
@@ -29,6 +30,7 @@ private:
     Ui::SettingsDialog *ui;
     QString m_language;
     bool m_useAria2c = false;
+    bool m_speedUnlimited = false;
     QString m_proxy;
     void applyLanguage();
 };
