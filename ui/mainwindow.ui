@@ -128,6 +128,16 @@
         </item>
         <item>
          <property name="text">
+          <string>MP4 (4K 2160p)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>MP4 (1440p)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
           <string>MP4 (1080p)</string>
          </property>
         </item>
@@ -138,12 +148,77 @@
         </item>
         <item>
          <property name="text">
+          <string>MP4 (480p)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>MP4 (360p)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>MP4 (240p)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>MP4 (144p)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
           <string>WebM (best)</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Audio only (MP3)</string>
+          <string>WebM (4K 2160p)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>WebM (1440p)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>WebM (1080p)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>WebM (720p)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>WebM (480p)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>WebM (360p)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Audio (MP3)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Audio (M4A)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Audio (WAV)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Audio (OGG)</string>
          </property>
         </item>
        </widget>

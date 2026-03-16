@@ -75,17 +75,27 @@
      </item>
      </layout>
     </item>
+      <item>
+       <widget class="QCheckBox" name="aria2cCheckBox">
+        <property name="text">
+         <string>Использовать aria2c</string>
+        </property>
+        <property name="toolTip">
+         <string>Использовать aria2c для ускорения загрузки</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="speedUnlimitedCheckBox">
+        <property name="text">
+         <string>Без ограничения скорости</string>
+        </property>
+        <property name="toolTip">
+         <string>Снять ограничение скорости (может привести к блокировке)</string>
+        </property>
+       </widget>
+      </item>
      <item>
-      <widget class="QCheckBox" name="aria2cCheckBox">
-       <property name="text">
-        <string>Использовать aria2c</string>
-       </property>
-       <property name="toolTip">
-        <string>Использовать aria2c для ускорения загрузки</string>
-       </property>
-      </widget>
-     </item>
-    <item>
      <widget class="QLabel" name="proxyLabel">
       <property name="text">
        <string>Прокси:</string>
