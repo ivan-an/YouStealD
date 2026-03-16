@@ -54,10 +54,11 @@ YouStealD currently supports the following interface languages:
 
 ### Performance tweaks
 
-- 1 MiB buffer
-- 4 concurrent fragments
+- 32 MiB buffer size
+- 4 concurrent fragments (default), up to 16 with aria2c
+- aria2c: 8 connections (with speed limit) or 16 connections (unlimited)
 - optional `--no-warnings` to keep the log clean
-- improved temporary file handling (partial files are removed only on errors or cancellation)
+- improved temporary file handling
 
 ---
 
