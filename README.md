@@ -25,7 +25,7 @@ Under the hood, YouStealD uses **yt-dlp** and **FFmpeg** for reliable media extr
 YouStealD currently supports the following interface languages:
 
 - 🇬🇧 English
-- 🇷🇺 Russian
+- 🇷🇺 Русский
 - 🇨🇳 中文
 - 🇮🇳 हिन्दी
 
