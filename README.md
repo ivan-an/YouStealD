@@ -26,8 +26,8 @@ YouStealD currently supports the following interface languages:
 
 - 🇬🇧 English
 - 🇷🇺 Russian
-- 🇨🇳 Chinese
-- 🇮🇳 Hindi
+- 🇨🇳 中文
+- 🇮🇳 हिन्दी
 
 ---
 
