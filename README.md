@@ -16,7 +16,7 @@ Under the hood, YouStealD uses **yt-dlp** and **FFmpeg** for reliable media extr
 
 ## 📸 Screenshot
 
-![YouStealD Main Window](res/screenshots/img2.png)
+![YouStealD Main Window](res/screenshots/img2.jpg)
 
 ---
 
