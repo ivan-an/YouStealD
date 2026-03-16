@@ -1,3 +1,7 @@
+> 🌐 Language: [English](README.md) | [Русский](README.ru.md)
+
+---
+
 # YouStealD
 
 **YouStealD** is a Qt-based graphical downloader and stream monitor for YouTube.
@@ -7,13 +11,16 @@ It allows you to download single videos, playlists, or entire channels, and it c
 Authentication is supported via browser cookies or a `cookies.txt` file.
 
 Under the hood, YouStealD uses **yt-dlp** and **FFmpeg** for reliable media extraction and processing, with optional **aria2** integration for accelerated multi-connection downloads and support for **HTTP/HTTPS/SOCKS proxies**.
+
 ---
 
-## Screenshot
+## 📸 Screenshot
 
 ![YouStealD Main Window](res/screenshots/img1.png)
 
-## 🌍Supported  Languages
+---
+
+## 🌍 Supported Languages
 
 YouStealD currently supports the following interface languages:
 
@@ -22,7 +29,9 @@ YouStealD currently supports the following interface languages:
 - 🇨🇳 Chinese
 - 🇮🇳 Hindi
 
-# ✨ Main Features
+---
+
+## ✨ Main Features
 
 - **Video / Playlist / Channel download** – select format, resolution, and container (MP4, WebM, audio-only).
 - **Stream monitoring** – watch a channel for new live streams or videos and download them automatically.
@@ -43,25 +52,23 @@ YouStealD currently supports the following interface languages:
 
 ---
 
-# 🛠️ Building and Running (Qt 6+)
+## 🛠️ Building and Running (Qt 6+)
 
-## Prerequisites
+### Prerequisites
 
 | Item | Requirement |
-|-----|-------------|
+|------|-------------|
 | Qt | Qt 6 (Core, Gui, Widgets, Network, Xml) |
 | Compiler | MSVC, MinGW‑w64, or clang |
 | Runtime tools | `yt-dlp.exe`, `ffmpeg.exe`, `deno.exe` |
 | Optional | `aria2c` (for the `--downloader` option) |
 
----
-
-## Build steps
+### Build steps
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourname/yousteald.git
-cd yousteald
+git clone https://github.com/ivan-an/YouStealD.git
+cd YouStealD
 
 # Generate Makefile
 qmake youtubed.pro
