@@ -2,7 +2,7 @@
 
 ---
 
-# 𝚈𝚘𝚞𝚂𝚝𝚎𝚊𝚕𝙳
+# YouStealD
 
 **YouStealD** is a Qt-based graphical downloader and stream monitor for YouTube videos, playlists, channels, and live streams.
 
@@ -14,7 +14,7 @@ Under the hood, YouStealD uses **yt-dlp** and **FFmpeg** for reliable media extr
 
 ---
 
-## 📸 𝚂𝚌𝚛𝚎𝚎𝚗𝚜𝚑𝚘𝚝
+## 📸 Screenshot
 
 ![YouStealD Main Window](res/screenshots/img3.png)
 
