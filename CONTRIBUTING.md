@@ -5,7 +5,7 @@
 # 👋 Welcome to YouStealD Contributions!
 
 Hey there! Thanks for wanting to help make YouStealD better. 🎉
-This is a pet project born from the desire to download YouTube videos without wrestling with command-line flags — and it's grown into something I'm proud of.
+This is a pet project born out of a desire to download videos without messing with the console. It has since grown into a full-fledged tool that I want to share with everyone.
 
 Whether you're fixing a typo, adding a feature, or just reporting a weird bug — every bit helps.
 
