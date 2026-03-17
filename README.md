@@ -2,7 +2,7 @@
 
 ---
 
-# YouStealD
+# YouStealD☄︎
 
 **YouStealD** is a Qt-based graphical downloader and stream monitor for YouTube videos, playlists, channels, and live streams.
 
